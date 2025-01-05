@@ -1,0 +1,43 @@
+-- Tabla de hoteles
+CREATE TABLE hotel (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    direccion VARCHAR(255) NOT NULL
+);
+
+-- Tabla de tipos de habitaciones
+CREATE TABLE tipo_habitacion (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    descripcion VARCHAR(100) NOT NULL,
+    hotel_id INT NOT NULL,
+    FOREIGN KEY (hotel_id) REFERENCES hotel(Id) ON DELETE CASCADE
+);
+
+-- Tabla de habitaciones
+CREATE TABLE habitacion (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    numero_habitacion VARCHAR(10) NOT NULL,
+    tipo_id INT NOT NULL,
+    precio DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (tipo_id) REFERENCES tipo_habitacion(Id) ON DELETE CASCADE
+);
+
+-- Inserción de datos de ejemplo
+INSERT INTO hotel (nombre, direccion) VALUES
+('Hotel Sol', 'Av. del Sol 123'),
+('Hotel Luna', 'Calle Luna 456'),
+('Hotel Estrella', 'Paseo Estrella 789');
+
+INSERT INTO tipo_habitacion (descripcion, hotel_id) VALUES
+('Individual', 1),
+('Doble', 1),
+('Suite', 2),
+('Individual', 3),
+('Doble', 3);
+
+INSERT INTO habitacion (numero_habitacion, tipo_id, precio) VALUES
+('A101', 1, 50.00),
+('B202', 2, 80.00),
+('S301', 3, 150.00),
+('C102', 4, 60.00),
+('D203', 5, 100.00);
